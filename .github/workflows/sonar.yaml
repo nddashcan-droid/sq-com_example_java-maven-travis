@@ -17,7 +17,10 @@ jobs:
     steps:
       - name: Ensure Git is available 
         shell: powershell 
-        run: git --version
+        run: |
+          where git
+          git --version
+
       - name: Checkout repository
         uses: actions/checkout@v3
         with:
