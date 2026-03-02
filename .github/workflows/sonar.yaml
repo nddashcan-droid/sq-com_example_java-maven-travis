@@ -26,13 +26,6 @@ jobs:
           java-version: '8'
           distribution: 'temurin'
           cache: maven
-      - name: Install Maven (portable)
-        shell: powershell
-        run: |
-          Invoke-WebRequest https://dlcdn.apache.org/maven/maven-3/3.9.6/binaries/apache-maven-3.9.6-bin.zip -OutFile maven.zip
-          Expand-Archive maven.zip -DestinationPath $env:USERPROFILE\maven
-          echo "$env:USERPROFILE\maven\apache-maven-3.9.6\bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
-
 
       - name: Build and SonarQube Analysis
         shell: powershell
@@ -40,7 +33,7 @@ jobs:
           SONAR_HOST_URL: 'http://172.16.5.237:9000'
           SONAR_LOGIN: 'squ_cbf71b57b38b7ce7210adf77800277a54cd3e186'
         run: |
-          mvn clean verify sonar:sonar `
+          C:\Users\Administrator\Downloads\apache-maven-3.9.12-bin\apache-maven-3.9.12\bin\mvn clean verify sonar:sonar `
             -Dsonar.projectKey=java-maven-travis-project `
             -Dsonar.host.url=$env:SONAR_HOST_URL `
             -Dsonar.login=$env:SONAR_LOGIN
