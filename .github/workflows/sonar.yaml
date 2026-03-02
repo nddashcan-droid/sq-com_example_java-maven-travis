@@ -31,11 +31,11 @@ jobs:
         shell: powershell
         env:
           SONAR_HOST_URL: 'http://172.16.5.237:9000'
-          SONAR_LOGIN: 'squ_cbf71b57b38b7ce7210adf77800277a54cd3e186'
+          SONAR_TOKEN: 'squ_cbf71b57b38b7ce7210adf77800277a54cd3e186'
         run: |
           & "C:\Users\Administrator\Downloads\apache-maven-3.9.12-bin\apache-maven-3.9.12\bin\mvn.cmd" `
             clean verify sonar:sonar `
             "-Dsonar.projectKey=java-maven-travis-project" `
             "-Dsonar.host.url=$env:SONAR_HOST_URL" `
-            "-Dsonar.login=$env:SONAR_LOGIN"
+            "-Dsonar.token=$env:SONAR_TOKEN"
 
