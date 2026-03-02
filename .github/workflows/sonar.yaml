@@ -12,12 +12,13 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, windows]   # your Windows runner labels
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
         with:
-          fetch-depth: 0  # Full history for SonarQube analysis
+          fetch-depth: 0
 
       - name: Set up JDK 8
         uses: actions/setup-java@v3
@@ -27,10 +28,12 @@ jobs:
           cache: maven
 
       - name: Build and SonarQube Analysis
+        shell: powershell
         env:
           SONAR_HOST_URL: 'http://172.16.5.237:9000'
           SONAR_LOGIN: 'squ_cbf71b57b38b7ce7210adf77800277a54cd3e186'
-        run: mvn clean verify sonar:sonar
-          -Dsonar.projectKey=java-maven-travis-project
-          -Dsonar.host.url=$SONAR_HOST_URL
-          -Dsonar.login=$SONAR_LOGIN
+        run: |
+          mvn clean verify sonar:sonar `
+            -Dsonar.projectKey=java-maven-travis-project `
+            -Dsonar.host.url=$env:SONAR_HOST_URL `
+            -Dsonar.login=$env:SONAR_LOGIN
