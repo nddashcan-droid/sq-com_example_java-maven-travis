@@ -10,7 +10,6 @@ public class Foo {
     }
 
     // SonarQube Issue: Hardcoded credentials
-    private static final String API_KEY = "sk-1234567890abcdef";
     private static final String DB_PASSWORD = "admin123";
 
     public static int div(int a, int b) throws ArithmeticException {
