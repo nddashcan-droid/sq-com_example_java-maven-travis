@@ -32,16 +32,17 @@ public class Foo {
 
     // SonarQube Issue: Unused variable and dead code
     public static void processData(int value) {
-        int unused = value * 2;
+        int unused = value * 2; 
         System.out.println("Processing...");
     }
 
     // SonarQube Issue: Empty catch block
-    public static void riskyOperation() {
+    public static void riskyOperation() throws InterruptedException {
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
-            // Silently ignored
+            Thread.currentThread().interrupt();
+            throw e;
         }
     }
 
