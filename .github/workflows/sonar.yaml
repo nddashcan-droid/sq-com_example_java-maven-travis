@@ -15,11 +15,18 @@ jobs:
     runs-on: [self-hosted, windows]   # your Windows runner labels
 
     steps:
-      - name: Ensure Git is available 
-        shell: powershell 
-        run: |
-          where git
-          git --version
+    - name: Ensure Git is installed
+      shell: powershell
+      run: |
+        if (-not (Get-Command git.exe -ErrorAction SilentlyContinue)) {
+          Write-Host "Git not found. Installing Git..."
+          Invoke-WebRequest -Uri "https://github.com/git-for-windows/git/releases/download/v2.45.2.windows.1/Git-2.45.2-64-bit.exe" -OutFile git-installer.exe
+          Start-Process .\git-installer.exe -ArgumentList "/VERYSILENT" -Wait
+          Write-Host "Git installed. You MUST restart the GitHub runner service for PATH to update."
+        } else {
+          Write-Host "Git already installed."
+        }
+
 
       - name: Checkout repository
         uses: actions/checkout@v3
