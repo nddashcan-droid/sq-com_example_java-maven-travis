@@ -110,68 +110,55 @@ public class Foo {
         }
     }
 
-    // S106: Use of System.out instead of a logger
+    // S106 fixed: use logger instead of System.out
     public static void printReport(String report) {
-        System.out.println("Report: " + report);
+        LOGGER.info(() -> "Report: " + report);
     }
 
-    // S112: Generic exception thrown
-    public static void riskyParse(String value) throws Exception {
+    // S112 fixed: use specific exception; S106 fixed: use logger
+    public static void riskyParse(String value) {
         if (value == null) {
-            throw new RuntimeException("Value is null");
+            throw new IllegalArgumentException("Value is null");
         }
         int parsed = Integer.parseInt(value);
-        System.out.println(parsed);
+        LOGGER.info(() -> "Parsed value: " + parsed);
     }
 
-    // S1068: Unused private field
-    private static final String DB_PASSWORD = "supersecret123";
-
-    // S1481 + S1854: Unused variable and useless assignment
+    // S1481/S1854 fixed: removed useless assignment, return directly
     public static int computeScore(int base) {
-        int unused = base * 2;  // assigned but never read
-        int result = 0;
-        result = base + 10;     // first assignment to result is useless
-        return result;
+        return base + 10;
     }
 
-    // S1066: Nested if that should be merged
+    // S1066 fixed: merged nested if into single condition
     public static String categorize(int x) {
-        if (x > 0) {
-            if (x > 100) {
-                return "big";
-            }
+        if (x > 0 && x > 100) {
+            return "big";
         }
         return "small";
     }
 
-    // S3776: High cognitive complexity
-    public static String complexLogic(int a, int b, int c, int d) {
-        String result = "";
-        if (a > 0) {
-            if (b > 0) {
-                if (c > 0) {
-                    if (d > 0) {
-                        result = "all positive";
-                    } else {
-                        result = "d negative";
-                    }
-                } else if (c < -10) {
-                    result = "c very negative";
-                } else {
-                    result = "c slightly negative";
-                }
-            } else if (b < -10) {
-                result = "b very negative";
-            } else {
-                result = "b slightly negative";
+    // S3776 fixed: extracted helper to reduce cognitive complexity
+    private static String resolvePositiveA(int b, int c, int d) {
+        if (b > 0) {
+            if (c > 0) {
+                return d > 0 ? "all positive" : "d negative";
+            } else if (c < -10) {
+                return "c very negative";
             }
-        } else if (a < -10) {
-            result = "a very negative";
-        } else {
-            result = "a slightly negative";
+            return "c slightly negative";
+        } else if (b < -10) {
+            return "b very negative";
         }
-        return result;
+        return "b slightly negative";
+    }
+
+    public static String complexLogic(int a, int b, int c, int d) {
+        if (a > 0) {
+            return resolvePositiveA(b, c, d);
+        } else if (a < -10) {
+            return "a very negative";
+        }
+        return "a slightly negative";
     }
 
     // S2259: Null dereference risk
