@@ -8,7 +8,7 @@
       ],
       "env": {
         "SONARQUBE_URL": "http://localhost:9000",
-        "SONARQUBE_TOKEN": "",
+        "SONARQUBE_TOKEN": "squ_13ddbe4f33aeffaa70c9b3ac8451875658bc739f",
         "STORAGE_PATH": "C:\\Users\\Administrator\\Downloads\\sonarqube-mcp-server-jar\\storage"
       }
     }

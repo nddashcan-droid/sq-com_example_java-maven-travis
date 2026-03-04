@@ -110,6 +110,75 @@ public class Foo {
         }
     }
 
+    // S106: Use of System.out instead of a logger
+    public static void printReport(String report) {
+        System.out.println("Report: " + report);
+    }
+
+    // S112: Generic exception thrown
+    public static void riskyParse(String value) throws Exception {
+        if (value == null) {
+            throw new RuntimeException("Value is null");
+        }
+        int parsed = Integer.parseInt(value);
+        System.out.println(parsed);
+    }
+
+    // S1068: Unused private field
+    private static final String DB_PASSWORD = "supersecret123";
+
+    // S1481 + S1854: Unused variable and useless assignment
+    public static int computeScore(int base) {
+        int unused = base * 2;  // assigned but never read
+        int result = 0;
+        result = base + 10;     // first assignment to result is useless
+        return result;
+    }
+
+    // S1066: Nested if that should be merged
+    public static String categorize(int x) {
+        if (x > 0) {
+            if (x > 100) {
+                return "big";
+            }
+        }
+        return "small";
+    }
+
+    // S3776: High cognitive complexity
+    public static String complexLogic(int a, int b, int c, int d) {
+        String result = "";
+        if (a > 0) {
+            if (b > 0) {
+                if (c > 0) {
+                    if (d > 0) {
+                        result = "all positive";
+                    } else {
+                        result = "d negative";
+                    }
+                } else if (c < -10) {
+                    result = "c very negative";
+                } else {
+                    result = "c slightly negative";
+                }
+            } else if (b < -10) {
+                result = "b very negative";
+            } else {
+                result = "b slightly negative";
+            }
+        } else if (a < -10) {
+            result = "a very negative";
+        } else {
+            result = "a slightly negative";
+        }
+        return result;
+    }
+
+    // S2259: Null dereference risk
+    public static int unsafeLength(String s) {
+        return s.length(); // s could be null
+    }
+
 }
 
 

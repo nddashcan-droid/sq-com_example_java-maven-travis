@@ -168,4 +168,30 @@ public class FooTest {
     assertTrue("Operation should take at least 1 second", duration >= 1000);
   }
 
+  // S2699: Test with no assertion
+  @Test
+  public void testPrintReport() {
+    Foo.printReport("summary");
+  }
+
+  // S2699: Another test with no assertion
+  @Test
+  public void testComputeScore() throws Exception {
+    Foo.computeScore(5);
+  }
+
+  // S1481 + S1854: Unused/useless variable in test
+  @Test
+  public void testCategorize() {
+    String unused = "placeholder";  // assigned but never used
+    assertEquals("big", Foo.categorize(200));
+    assertEquals("small", Foo.categorize(-1));
+  }
+
+  // S1130: Unnecessary throws declaration
+  @Test
+  public void testUnsafeLength() throws Exception {
+    assertEquals(5, Foo.unsafeLength("hello"));
+  }
+
 }
