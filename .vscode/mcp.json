@@ -1,0 +1,16 @@
+{
+  "servers": {
+    "sonarqube": {
+      "command": "java",
+      "args": [
+        "-jar",
+        "C:\\Users\\Administrator\\Downloads\\sonarqube-mcp-server-jar\\sonarqube-mcp-server-1.12-SNAPSHOT.jar"
+      ],
+      "env": {
+        "SONARQUBE_URL": "http://localhost:9000",
+        "SONARQUBE_TOKEN": "",
+        "STORAGE_PATH": "C:\\Users\\Administrator\\Downloads\\sonarqube-mcp-server-jar\\storage"
+      }
+    }
+  }
+}

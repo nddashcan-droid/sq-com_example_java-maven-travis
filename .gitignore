@@ -3,6 +3,8 @@
 ### But not Git ignore and Travis file
 !.gitignore
 !.travis.yml
+!.vscode/
+!.vscode/mcp.json
 
 ### IntelliJ Idea
 #.idea/
