@@ -100,4 +100,65 @@ public class FooTest {
     assertEquals("", Foo.reverseString(""));
   }
 
+  @Test
+  public void testGetUserData() {
+    String result = Foo.getUserData("42");
+    assertNotNull(result);
+    assertTrue(result.contains("42"));
+  }
+
+  @Test
+  public void testGetLength() {
+    assertEquals(5, Foo.getLength("hello"));
+    assertEquals(0, Foo.getLength(""));
+  }
+
+  @Test
+  public void testProcessData() {
+    Foo.processData(10); // should not throw
+  }
+
+  @Test
+  public void testValidateInputValid() {
+    Foo.validateInput("valid"); // should not throw
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testValidateInputNull() {
+    Foo.validateInput(null);
+  }
+
+  @Test
+  public void testClassifyLarge() {
+    assertEquals("large", Foo.classify(101));
+  }
+
+  @Test
+  public void testClassifyNotLarge() {
+    assertEquals("", Foo.classify(50));
+    assertEquals("", Foo.classify(-1));
+  }
+
+  @Test
+  public void testCountWords() {
+    assertEquals(3, Foo.countWords("hello world foo"));
+    assertEquals(1, Foo.countWords("hello"));
+  }
+
+  @Test
+  public void testGrade() {
+    assertEquals("Perfect", Foo.grade(100));
+    assertEquals("A", Foo.grade(95));
+    assertEquals("B+", Foo.grade(85));
+    assertEquals("B", Foo.grade(80));
+    assertEquals("C", Foo.grade(70));
+    assertEquals("D", Foo.grade(60));
+    assertEquals("F", Foo.grade(50));
+  }
+
+  @Test
+  public void testRiskyOperation() throws InterruptedException {
+    Foo.riskyOperation(); // should complete without error
+  }
+
 }
