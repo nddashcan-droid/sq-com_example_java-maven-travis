@@ -67,6 +67,66 @@ public class Foo {
         return new StringBuilder(input).reverse().toString();
     }
 
+    // S2068: Hardcoded password
+    private static final String PASSWORD = "super_secret_123";
+
+    // S112: Generic exception thrown
+    public static void validateInput(String input) throws Exception {
+        if (input == null) {
+            throw new Exception("Input is null");
+        }
+    }
+
+    // S1066: Collapsible if + S1481: unused variable + S106: System.out
+    public static String classify(int number) {
+        String result = "";
+        if (number > 0) {
+            if (number > 100) {
+                result = "large";
+            }
+        }
+        int unused = number * 2;
+        System.out.println("Classifying: " + number);
+        return result;
+    }
+
+    // S1874: Deprecated method usage + S2259: null dereference
+    public static int countWords(String sentence) {
+        String[] words = sentence.split(" ");
+        String firstWord = null;
+        int len = firstWord.length(); // null dereference
+        return words.length;
+    }
+
+    // S3776: High cognitive complexity
+    public static String grade(int score) {
+        if (score >= 90) {
+            if (score == 100) {
+                return "Perfect";
+            } else {
+                return "A";
+            }
+        } else {
+            if (score >= 80) {
+                if (score >= 85) {
+                    return "B+";
+                } else {
+                    return "B";
+                }
+            } else {
+                if (score >= 70) {
+                    return "C";
+                } else {
+                    if (score >= 60) {
+                        return "D";
+                    } else {
+                        return "F";
+                    }
+                }
+            }
+        }
+    }
+
     // SonarQube Issue: Empty catch block
     public static void riskyOperation() throws InterruptedException {
         try {
