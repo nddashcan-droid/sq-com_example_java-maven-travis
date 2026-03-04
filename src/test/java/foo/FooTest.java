@@ -115,7 +115,11 @@ public class FooTest {
 
   @Test
   public void testProcessData() {
-    Foo.processData(10); // should not throw
+    // Should not throw, logger processes the value
+    Foo.processData(10);
+    Foo.processData(-1);
+    Foo.processData(0);
+    assertTrue(true); // verifies no exception was thrown
   }
 
   @Test
@@ -158,7 +162,10 @@ public class FooTest {
 
   @Test
   public void testRiskyOperation() throws InterruptedException {
-    Foo.riskyOperation(); // should complete without error
+    long start = System.currentTimeMillis();
+    Foo.riskyOperation();
+    long duration = System.currentTimeMillis() - start;
+    assertTrue("Operation should take at least 1 second", duration >= 1000);
   }
 
 }
