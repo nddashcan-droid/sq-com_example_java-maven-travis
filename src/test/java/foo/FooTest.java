@@ -40,24 +40,19 @@ public class FooTest {
     Foo.div(10, 0);
   }
 
-  // SonarQube Issue: Hardcoded credentials
   @Test
-  public void testWithHardcodedPassword() throws Exception {
+  public void testWithHardcodedPassword() {
     String password = "admin123";
-    String apiKey = "sk-1234567890abcdef";
-    assertEquals(true, password.length() > 0);
+    assertFalse(password.isEmpty());
   }
 
-  // SonarQube Issue: Unused variable
   @Test
   public void testWithUnusedVariable() throws Exception {
-    int unused = 42;
     assertEquals(2, Foo.div(10, 5));
   }
 
-  // SonarQube Issue: SQL Injection risk
   @Test
-  public void testWithSQLInjection() throws Exception {
+  public void testWithSQLInjection() {
     String userInput = "'; DROP TABLE users; --";
     String query = "SELECT * FROM users WHERE id = " + userInput;
     assertNotNull(query);

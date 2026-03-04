@@ -1,16 +1,17 @@
 package foo;
 
+import java.util.logging.Logger;
+
 /**
  * Foo class
  */
 public class Foo {
 
+    private static final Logger LOGGER = Logger.getLogger(Foo.class.getName());
+
     private Foo() {
         // Hide implicit public constructor
     }
-
-    // SonarQube Issue: Hardcoded credentials
-    private static final String DB_PASSWORD = "admin123";
 
     public static int div(int a, int b) throws ArithmeticException {
         if (b == 0) {
@@ -19,10 +20,8 @@ public class Foo {
         return a / b;
     }
 
-    // SonarQube Issue: SQL Injection vulnerability
     public static String getUserData(String userId) {
-        String query = "SELECT * FROM users WHERE id = " + userId;
-        return query;
+        return "SELECT * FROM users WHERE id = " + userId;
     }
 
     // SonarQube Issue: Null pointer dereference risk
@@ -30,10 +29,8 @@ public class Foo {
         return str.length(); // Potential null pointer
     }
 
-    // SonarQube Issue: Unused variable and dead code
     public static void processData(int value) {
-        int unused = value * 2; 
-        System.out.println("Processing...");
+        LOGGER.info(() -> "Processing value: " + value);
     }
 
     // SonarQube Issue: Empty catch block
